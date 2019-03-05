@@ -1,0 +1,62 @@
+.tasks {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 20px 0px 10px 0px;
+  display: flex;
+}
+.tasks:last-child {
+  border-bottom: none;
+}
+.left {
+  align-self: flex-start;
+  flex-grow: 1;
+  text-align: left;
+}
+.right {
+  align-self: flex-end;
+  flex-grow: 1;
+  text-align: right;
+}
+.title_space {
+  padding-right: 20px;
+}
+
+/* --------GLOBALT--------------- */
+.typo_text {
+}
+
+.typo_medium {
+  font-weight: 700;
+}
+/* ----------------------- */
+
+.tasksvertical {
+  padding: 20px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.tasksvertical div {
+  align-self: center;
+}
+.tasksvertical img {
+  align-self: center;
+}
+
+.scoreboard {
+  background: #3e3d4a;
+  border-radius: 20px;
+  padding: 20px 40px;
+  margin: 10px 50px 50px 50px;
+}
+
+.container_scoreboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  text-align: center;
+  /* font-size: calc(10px + 2vmin); */
+}

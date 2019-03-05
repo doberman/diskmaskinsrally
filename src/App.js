@@ -1,26 +1,36 @@
-import React, { Component } from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React, { Component } from "react";
+import "./App.css";
+import Scoreboard from "../src/components/Scoreboard";
+import User from "../src/components/User";
+import Navbar from "./components/Navbar";
+import Button from "./components/Button";
+import NewGame from "./components/NewGame";
+import NewUser from "./components/NewUser";
+import SignIn from "./components/auth/SignIn";
+import SignUp from "./components/auth/SignUp";
+
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>DISKMASKINSRALLY</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    )
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <div className="App-content">
+            <Switch>
+              <Route exact path="/" component={Scoreboard} />
+              <Route path="/newgame" component={NewGame} />
+              <Route path="/adduser" component={User} />
+              <Route path="/signin" component={SignIn} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/newuser" component={NewUser} />
+            </Switch>
+          </div>
+        </div>
+      </BrowserRouter>
+    );
   }
 }
 
-export default App
+export default App;
