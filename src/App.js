@@ -8,6 +8,7 @@ import NewGame from "./components/NewGame";
 import NewUser from "./components/NewUser";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
+import DatabaseOutput from "./components/DatabaseOutput";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 

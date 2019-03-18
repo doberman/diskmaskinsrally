@@ -1,3 +1,9 @@
 .background-color {
   background: linear-gradient(180deg, #3e3d4a 0%, #1f1e2a 100%);
 }
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    left: 10%;
+  }
+}

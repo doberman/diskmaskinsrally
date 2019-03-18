@@ -1,15 +1,16 @@
 .tasks {
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 20px 0px 10px 0px;
+  padding: 10px 0px;
   display: flex;
 }
-.tasks:last-child {
+/* .tasks:last-child {
   border-bottom: none;
-}
+} */
 .left {
   align-self: flex-start;
   flex-grow: 1;
   text-align: left;
+  padding-right: 20px;
 }
 .right {
   align-self: flex-end;
@@ -56,6 +57,15 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+
+  text-align: center;
+  /* font-size: calc(10px + 2vmin); */
+}
+.container_scoreboard-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 
   text-align: center;
   /* font-size: calc(10px + 2vmin); */

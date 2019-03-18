@@ -4,13 +4,34 @@ import "../css/button.css";
 
 class Button extends Component {
   state = {
-    type: ""
+    [this.props.name]: this.props.score
   };
+
+  handleCount = e => {
+    e.preventDefault();
+
+    this.setState(prevState => ({
+      [this.props.name]: this.props.score + 1
+    }));
+
+    firebase.settings({});
+    const userRef = firebase.collection("games").update({
+      "duty_scores.handla": [this.state.score]
+    });
+  };
+
   render() {
+    const { name, score } = this.props;
     return (
-      <a className="floating-btn" type={this.state.type}>
-        +
-      </a>
+      <div className="container_scoreboard">
+        <div style={{ padding: "50px" }}>
+          <span style={{ display: "block" }}>{name}</span>
+          <a onClick={this.handleCount} id={name} className="gobutton" href="#">
+            +
+          </a>
+          <div>{this.state.name}</div>
+        </div>
+      </div>
     );
   }
 }

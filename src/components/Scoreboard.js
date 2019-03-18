@@ -1,14 +1,32 @@
-import React from "react";
-import Tasks from "./TaskRow";
-import "../css/taskRow.css";
+import React, { Fragment } from "react";
+import Duty from "./Duty";
+import UserScore from "./UserScore";
 
-function Scoreboard() {
+import "../css/taskRow.css";
+import { withGames } from "./hoc/withGames";
+
+function Scoreboard(props) {
+  const { games } = props;
+  if (games.length === 0) {
+    return null;
+  }
+  const game = games.filter(game => {
+    return game.active;
+  })[0];
+
   return (
-    <div className="container_scoreboard">
-      <Tasks />
-      <Tasks />
+    <div>
+      <div className="container_scoreboard">
+        <h5>Add what you've done!</h5>
+      </div>
+
+      <div className="container_scoreboard">
+        {game.users.map(user => (
+          <UserScore key={user.id} user={user} />
+        ))}
+      </div>
     </div>
   );
 }
 
-export default Scoreboard;
+export default withGames(Scoreboard);

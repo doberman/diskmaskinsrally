@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Button from "../components/Button";
 import "../css/form-element.css";
 import NewUser from "./NewUser";
-
+import { withUsers } from "./hoc/withUsers";
+console.log(withUsers);
 class NewGame extends Component {
   state = {};
 
@@ -17,9 +18,20 @@ class NewGame extends Component {
     });
   };
   render() {
+    const { ENPROPPAJAKEL, users } = this.props;
+
+    console.log("NEW GAME PROPS", this.props);
+
     return (
       <div className="container">
-        <h2>New game</h2>
+        <ul>
+          {users.map((user, index) => (
+            <li key={index}>
+              {user.first_name} {user.last_name} {user.email}
+            </li>
+          ))}
+        </ul>
+        <h2>{ENPROPPAJAKEL}</h2>
         <form onSubmit={this.handleSubmit}>
           <div className="input-field">
             <input
@@ -31,7 +43,7 @@ class NewGame extends Component {
             <label htmlFor="title">Game title</label>
           </div>
           <div className="input-field">
-            <p>
+            <div>
               <p className="field-title">CHOOSE DUTY/IES</p>
 
               <label htmlFor="diskmaskin">
@@ -42,10 +54,10 @@ class NewGame extends Component {
                 />
                 <span>Diskmaskinen</span>
               </label>
-            </p>
+            </div>
           </div>
           <div className="input-field">
-            <p>
+            <div>
               <label htmlFor="tvattmaskin">
                 <input
                   id="tvattmaskin"
@@ -54,10 +66,10 @@ class NewGame extends Component {
                 />
                 <span>Tvättmaskinen</span>
               </label>
-            </p>
+            </div>
           </div>
           <div className="input-field">
-            <p>
+            <div>
               <label htmlFor="handla">
                 <input
                   id="handla"
@@ -66,14 +78,14 @@ class NewGame extends Component {
                 />
                 <span>Handla</span>
               </label>
-            </p>
+            </div>
           </div>
           <div className="input-field">
-            <p>
+            <div>
               <span>
                 <a href="">+ add new duty</a>
               </span>
-            </p>
+            </div>
           </div>
           <div className="input-field">
             <label htmlFor="prize">Prize</label>
@@ -88,7 +100,7 @@ class NewGame extends Component {
 
           <div className="button-user-field input-field">
             <div className="button-user">
-              <p>
+              <div>
                 <p className="field-title">BUTTON 1 HAS USER</p>
                 <label htmlFor="button_1_user1">
                   <input
@@ -99,8 +111,8 @@ class NewGame extends Component {
                   />
                   <span>User 1</span>
                 </label>
-              </p>
-              <p>
+              </div>
+              <div>
                 <label htmlFor="button_1_user2">
                   <input
                     id="button_1_user2"
@@ -110,16 +122,18 @@ class NewGame extends Component {
                   />
                   <span>User 2</span>
                 </label>
-              </p>
-              <p>
+              </div>
+              <div>
                 <span>
-                  <a href="#modal1">+ add new user</a>
+                  <a href="#" data-toggle="#modal1" data-target="#modal1">
+                    + add new user
+                  </a>
                   <NewUser />
                 </span>
-              </p>{" "}
+              </div>{" "}
             </div>
             <div className="button-user">
-              <p>
+              <div>
                 <p className="field-title">BUTTON 2 HAS USER</p>
 
                 <label htmlFor="button_2_user1">
@@ -131,8 +145,8 @@ class NewGame extends Component {
                   />
                   <span>User 1</span>
                 </label>
-              </p>
-              <p>
+              </div>
+              <div>
                 <label htmlFor="button_2_user2">
                   <input
                     id="button_2_user2"
@@ -142,13 +156,13 @@ class NewGame extends Component {
                   />
                   <span>User 2</span>
                 </label>
-              </p>
+              </div>
 
-              <p>
+              <div>
                 <span>
                   <a href="#modal1">+ add new user</a>
                 </span>
-              </p>
+              </div>
             </div>
           </div>
           <div className="input-field">
@@ -170,4 +184,4 @@ class NewGame extends Component {
     );
   }
 }
-export default NewGame;
+export default withUsers(NewGame);
