@@ -1,81 +1,112 @@
 import React, { Component } from "react";
 import firebase from "../components/firestore";
+import { Link, withRouter } from "react-router-dom";
+import { withFirebase } from "./Firebase/index";
+
+const INITIAL_STATE = {
+  username: "",
+  email: "",
+  passwordOne: "",
+  passwordTwo: "",
+  error: null
+};
 
 class CreateUser extends Component {
-  state = {};
+  state = { ...INITIAL_STATE };
 
   handleSubmit = e => {
+    const { username, email, passwordOne } = this.state;
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .then(authUser => {
+        this.setState({ ...INITIAL_STATE });
+        this.props.history.push("/signin");
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+
     e.preventDefault();
-    firebase.settings({});
-    const userRef = firebase.collection("users").add({
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,
-      password: this.state.password
-    });
-    this.setState({
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: ""
-    });
+
+    // e.preventDefault();
+    // firebase.settings({});
+    // const userRef = firebase.collection("users").add({
+    //   first_name: this.state.first_name,
+    //   last_name: this.state.last_name,
+    //   email: this.state.email,
+    //   password: this.state.password
+    // });
+    // this.setState({
+    //   first_name: "",
+    //   last_name: "",
+    //   email: "",
+    //   password: ""
+    // });
   };
 
-  handleChange = e => {
-    this.setState({
-      //get right field
-      [e.target.id]: e.target.value
-    });
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
+    const { username, email, passwordOne, passwordTwo, error } = this.state;
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === "" ||
+      email === "" ||
+      username === "";
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="dark">
           <div className="input-field">
-            <label htmlFor="first_name">First name</label>
+            <label htmlFor="first_name">Username</label>
             <input
+              name="username"
+              value={username}
+              onChange={this.onChange}
               type="text"
-              id="first_name"
-              onChange={this.handleChange}
-              value={this.state.first_name}
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="last_name">Last name</label>
-            <input
-              type="text"
-              id="last_name"
-              onChange={this.handleChange}
-              value={this.state.last_name}
             />
           </div>
           <div className="input-field">
             <label htmlFor="email">Email</label>
             <input
-              type="email"
-              id="email"
-              onChange={this.handleChange}
-              value={this.state.email}
+              name="email"
+              value={email}
+              onChange={this.onChange}
+              type="text"
             />
           </div>
           <div className="input-field">
             <label htmlFor="password">Password</label>
             <input
+              name="passwordOne"
+              value={passwordOne}
+              onChange={this.onChange}
               type="password"
-              id="password"
-              onChange={this.handleChange}
-              value={this.state.password}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="password">Confirm Password</label>
+            <input
+              name="passwordTwo"
+              value={passwordTwo}
+              onChange={this.onChange}
+              type="password"
             />
           </div>
 
-          <button type="submit" className="btn lighten-1 z-depth-0">
+          <button
+            type="submit"
+            disabled={isInvalid}
+            className="btn lighten-1 z-depth-0"
+          >
             Sign up
           </button>
+          {error && <p>{error.message}</p>}
         </form>
       </div>
     );
   }
 }
 
-export default CreateUser;
+export default withRouter(withFirebase(CreateUser));

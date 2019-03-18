@@ -11,7 +11,7 @@ class Button extends Component {
     e.preventDefault();
 
     this.setState(prevState => ({
-      [this.props.name]: this.props.score + 1
+      [this.props.name]: prevState + 1
     }));
 
     firebase.settings({});
