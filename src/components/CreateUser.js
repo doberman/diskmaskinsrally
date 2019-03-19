@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import firebase from "../components/firestore";
 import { Link, withRouter } from "react-router-dom";
-import { withFirebase } from "./Firebase/index";
+import { doCreateUserWithEmailAndPassword } from "./Firebase";
+import PropTypes from "prop-types";
 
 const INITIAL_STATE = {
   username: "",
@@ -16,36 +16,26 @@ class CreateUser extends Component {
 
   handleSubmit = e => {
     const { username, email, passwordOne } = this.state;
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
+
+    doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push("/signin");
+        this.props.history.push("/");
       })
       .catch(error => {
         this.setState({ error });
       });
 
     e.preventDefault();
-
-    // e.preventDefault();
-    // firebase.settings({});
-    // const userRef = firebase.collection("users").add({
-    //   first_name: this.state.first_name,
-    //   last_name: this.state.last_name,
-    //   email: this.state.email,
-    //   password: this.state.password
-    // });
-    // this.setState({
-    //   first_name: "",
-    //   last_name: "",
-    //   email: "",
-    //   password: ""
-    // });
   };
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   render() {
@@ -55,12 +45,20 @@ class CreateUser extends Component {
       passwordOne === "" ||
       email === "" ||
       username === "";
+    const { match, location, history } = this.props;
+
+    const headerColor =
+      location.pathname === "/newgame"
+        ? { color: "black" }
+        : { color: "white" };
+
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="dark">
           <div className="input-field">
             <label htmlFor="first_name">Username</label>
             <input
+              style={headerColor}
               name="username"
               value={username}
               onChange={this.onChange}
@@ -70,6 +68,7 @@ class CreateUser extends Component {
           <div className="input-field">
             <label htmlFor="email">Email</label>
             <input
+              style={headerColor}
               name="email"
               value={email}
               onChange={this.onChange}
@@ -79,6 +78,7 @@ class CreateUser extends Component {
           <div className="input-field">
             <label htmlFor="password">Password</label>
             <input
+              style={headerColor}
               name="passwordOne"
               value={passwordOne}
               onChange={this.onChange}
@@ -88,6 +88,7 @@ class CreateUser extends Component {
           <div className="input-field">
             <label htmlFor="password">Confirm Password</label>
             <input
+              style={headerColor}
               name="passwordTwo"
               value={passwordTwo}
               onChange={this.onChange}
@@ -109,4 +110,4 @@ class CreateUser extends Component {
   }
 }
 
-export default withRouter(withFirebase(CreateUser));
+export default withRouter(CreateUser);

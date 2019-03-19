@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import SignOut from "../components/auth/SignOut";
 
 const SignInLinks = () => {
   return (
@@ -8,7 +9,8 @@ const SignInLinks = () => {
         <NavLink to="/newgame">New game</NavLink>
       </li>
       <li>
-        <NavLink to="/">Log Out</NavLink>
+        <SignOut />
+        {/* <NavLink to="/signout">Log Out</NavLink> */}
       </li>
       <li>
         <NavLink to="/" className="btn btn-floating pink lighten-1">

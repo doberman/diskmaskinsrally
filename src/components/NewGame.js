@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from "../components/Button";
 import "../css/form-element.css";
 import NewUser from "./NewUser";
-import { withUsers } from "./hoc/withUsers";
+import { withUsers } from "./hoc/withAuthUser";
 console.log(withUsers);
 class NewGame extends Component {
   state = {};
@@ -101,7 +101,7 @@ class NewGame extends Component {
           <div className="button-user-field input-field">
             <div className="button-user">
               <div>
-                <p className="field-title">BUTTON 1 HAS USER</p>
+                <p className="field-title">CHOOSE COMPETITOR</p>
                 <label htmlFor="button_1_user1">
                   <input
                     id="button_1_user1"
@@ -125,44 +125,9 @@ class NewGame extends Component {
               </div>
               <div>
                 <span>
-                  <a href="#" data-toggle="#modal1" data-target="#modal1">
-                    + add new user
-                  </a>
                   <NewUser />
                 </span>
               </div>{" "}
-            </div>
-            <div className="button-user">
-              <div>
-                <p className="field-title">BUTTON 2 HAS USER</p>
-
-                <label htmlFor="button_2_user1">
-                  <input
-                    id="button_2_user1"
-                    name="group2"
-                    type="radio"
-                    onChange={this.handleChange}
-                  />
-                  <span>User 1</span>
-                </label>
-              </div>
-              <div>
-                <label htmlFor="button_2_user2">
-                  <input
-                    id="button_2_user2"
-                    name="group2"
-                    type="radio"
-                    onChange={this.handleChange}
-                  />
-                  <span>User 2</span>
-                </label>
-              </div>
-
-              <div>
-                <span>
-                  <a href="#modal1">+ add new user</a>
-                </span>
-              </div>
             </div>
           </div>
           <div className="input-field">

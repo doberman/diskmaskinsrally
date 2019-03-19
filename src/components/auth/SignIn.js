@@ -1,45 +1,83 @@
 import React, { Component } from "react";
 import NewUser from "../NewUser";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { doSignInWithEmailAndPassword } from "../Firebase";
+
+const INITIAL_STATE = {
+  email: "",
+  password: "",
+  error: null
+};
 
 class SignIn extends Component {
-  state = {
-    email: "",
-    password: ""
+  constructor(props) {
+    super(props);
+
+    this.state = { ...INITIAL_STATE };
+  }
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    const { email, password } = this.state;
+
+    doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+
+        this.props.history.push("/");
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log("STATE:", this.state);
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
-  handleChange = e => {
-    this.setState({
-      //get right field
-      [e.target.id]: e.target.value
-    });
-  };
+
   render() {
+    const { email, password, error } = this.state;
+    const isInvalid = password === "" || email === "";
+
     return (
       <div className="container">
-        <form onSubmit={this.handleSubmit} className="dark">
+        <form onSubmit={this.onSubmit}>
           <h2 className="">Sign In</h2>
           <div className="input-field">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" onChange={this.handleChange} />
+            <input
+              name="email"
+              value={email}
+              onChange={this.onChange}
+              type="text"
+            />{" "}
           </div>
           <div className="input-field">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" onChange={this.handleChange} />
+            <input
+              name="password"
+              value={password}
+              onChange={this.onChange}
+              type="password"
+            />{" "}
           </div>
+          <button
+            disabled={isInvalid}
+            type="submit"
+            className="btn lighten-1 z-depth-0"
+          >
+            Sign In
+          </button>
+          <Link to="/signup" className="">
+            <p>Don't have an account?</p>
+          </Link>
 
-          <button className="btn lighten-1 z-depth-0">Login</button>
+          {error && <p>{error.message}</p>}
         </form>
-        <Link to="/signup" className="">
-          <p>Don't have an account?</p>
-        </Link>
       </div>
     );
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

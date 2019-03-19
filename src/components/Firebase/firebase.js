@@ -1,4 +1,6 @@
 import firebase from "firebase";
+import "firebase/firestore";
+
 import "firebase/auth";
 import app from "firebase/app";
 
@@ -11,22 +13,20 @@ var config = {
   messagingSenderId: "1029713196963"
 };
 
-class Firebase {
-  constructor() {
-    app.initializeApp(config);
-    this.auth = app.auth();
-  }
-  // *** Auth API ***
-  doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
+app.initializeApp(config);
 
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+const auth = app.auth();
+export const firestore = firebase.firestore();
 
-  doSignOut = () => this.auth.signOut();
+export const doCreateUserWithEmailAndPassword = (email, password) =>
+  auth.createUserWithEmailAndPassword(email, password);
 
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+export const doSignInWithEmailAndPassword = (email, password) =>
+  auth.signInWithEmailAndPassword(email, password);
 
-  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
-}
-export default Firebase;
+export const doSignOut = () => auth.signOut();
+
+export const doPasswordReset = email => auth.sendPasswordResetEmail(email);
+
+export const doPasswordUpdate = password =>
+  auth.currentUser.updatePassword(password);

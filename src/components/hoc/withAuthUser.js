@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firestore from "../firestore";
+import { firestore } from "../Firebase";
 
 export const withUsers = Component => {
   return class WithUsers extends Component {

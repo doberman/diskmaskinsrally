@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase from "./firestore";
+
 import "../css/button.css";
 
 class Button extends Component {
@@ -14,10 +14,9 @@ class Button extends Component {
       [this.props.name]: prevState + 1
     }));
 
-    firebase.settings({});
-    const userRef = firebase.collection("games").update({
-      "duty_scores.handla": [this.state.score]
-    });
+    // const userRef = firebase.collection("games").update({
+    //   "duty_scores.handla": [this.state.score]
+    // });
   };
 
   render() {
