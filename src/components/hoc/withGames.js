@@ -15,8 +15,14 @@ export const withGames = ComponentToWrap => {
       console.log("WITH GAMES DID MOUNT");
 
       firestore.collection("games").onSnapshot(querySnapshot => {
-        const games = querySnapshot.docs.map(doc => doc.data());
-        // game.map()
+        const games = querySnapshot.docs.map(doc => {
+          doc.data();
+          return {
+            id: doc.id,
+            ...doc.data()
+          };
+          console.log("DOC:", doc);
+        });
 
         this.setState({
           games

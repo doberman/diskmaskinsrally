@@ -2,36 +2,72 @@ import React, { Component } from "react";
 import Button from "../components/Button";
 import "../css/form-element.css";
 import NewUser from "./NewUser";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import firebase from "firebase";
+import { withFirestore } from "./Firebase";
 import { withUsers } from "./hoc/withAuthUser";
-console.log(withUsers);
+import Checkbox from "./Checkbox";
+
 class NewGame extends Component {
-  state = {};
+  state = {
+    active: false,
+    day_start: {},
+    day_end: "",
+    duties: [],
+    prize: "",
+    title: "",
+    users: {
+      duty_score: {},
+      name: ""
+    }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log("STATE:", this.state);
+
+    const { firestore } = this.props;
+
+    firestore.collection("games").add({
+      active: false,
+      day_start: new Date(),
+      day_end: "",
+      duties: [],
+      prize: this.state.prize,
+      title: this.state.title,
+      users: {
+        duty_score: {},
+        name: ""
+      }
+    });
   };
   handleChange = e => {
     this.setState({
-      //get right field
       [e.target.id]: e.target.value
     });
   };
-  render() {
-    const { ENPROPPAJAKEL, users } = this.props;
 
-    console.log("NEW GAME PROPS", this.props);
+  render() {
+    const { users } = this.props;
+
+    const currentUser = firebase.auth().currentUser;
+    // If "cant of undefined"
+    if (!currentUser || users.length === 0) {
+      return null;
+    }
+
+    const currentUserEmail = currentUser.email;
+    const currentUserDuties = users.filter(
+      user => user.email === currentUserEmail
+    );
+
+    const duties = currentUserDuties.map(
+      currentUserDuty => currentUserDuty.duties
+    )[0];
+    console.log("duties:", duties);
 
     return (
       <div className="container">
-        <ul>
-          {users.map((user, index) => (
-            <li key={index}>
-              {user.first_name} {user.last_name} {user.email}
-            </li>
-          ))}
-        </ul>
-        <h2>{ENPROPPAJAKEL}</h2>
         <form onSubmit={this.handleSubmit}>
           <div className="input-field">
             <input
@@ -42,44 +78,11 @@ class NewGame extends Component {
             />
             <label htmlFor="title">Game title</label>
           </div>
-          <div className="input-field">
-            <div>
-              <p className="field-title">CHOOSE DUTY/IES</p>
+          <p className="field-title">CHOOSE DUTY/IES</p>
+          {duties.map(duty => (
+            <Checkbox duty={duty} />
+          ))}
 
-              <label htmlFor="diskmaskin">
-                <input
-                  id="diskmaskin"
-                  type="checkbox"
-                  onChange={this.handleChange}
-                />
-                <span>Diskmaskinen</span>
-              </label>
-            </div>
-          </div>
-          <div className="input-field">
-            <div>
-              <label htmlFor="tvattmaskin">
-                <input
-                  id="tvattmaskin"
-                  type="checkbox"
-                  onChange={this.handleChange}
-                />
-                <span>Tvättmaskinen</span>
-              </label>
-            </div>
-          </div>
-          <div className="input-field">
-            <div>
-              <label htmlFor="handla">
-                <input
-                  id="handla"
-                  type="checkbox"
-                  onChange={this.handleChange}
-                />
-                <span>Handla</span>
-              </label>
-            </div>
-          </div>
           <div className="input-field">
             <div>
               <span>
@@ -101,7 +104,7 @@ class NewGame extends Component {
           <div className="button-user-field input-field">
             <div className="button-user">
               <div>
-                <p className="field-title">CHOOSE COMPETITOR</p>
+                <p className="field-title">COMPETITOR</p>
                 <label htmlFor="button_1_user1">
                   <input
                     id="button_1_user1"
@@ -133,12 +136,7 @@ class NewGame extends Component {
           <div className="input-field">
             <label htmlFor="days">Days</label>
 
-            <input
-              id="days"
-              type="number"
-              name="days"
-              onChange={this.handleChange}
-            />
+            <DatePicker selected={this.state.startDate} />
           </div>
 
           <button className="btn" type="submit">
@@ -149,4 +147,4 @@ class NewGame extends Component {
     );
   }
 }
-export default withUsers(NewGame);
+export default withFirestore(withUsers(NewGame));

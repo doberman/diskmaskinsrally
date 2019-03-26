@@ -7,27 +7,31 @@ import UserAvatar from "./UserAvatar";
 
 class UserScore extends Component {
   render() {
-    const { user } = this.props;
-
-    // const gameUserName = gameUser.map(g => g.map(gh => <div>{gh.name}</div>));
-    // const gameUserScores = gameUser.map(g => g.map(gh => gh.duty_scores));
-
+    const { user, game } = this.props;
+    console.log("game:", game);
+    console.log("user:", user);
     return (
       <div>
-        {" "}
         <div className="container_scoreboard">
-          {Object.keys(user.duty_scores).map(function(duty) {
-            const dutyScore = user.duty_scores[duty];
+          {Object.keys(user.duty_score).map(function(duty) {
+            const dutyScore = user.duty_score[duty];
 
-            return <Button name={duty} score={dutyScore} />;
+            return (
+              <Button
+                dutyName={duty}
+                dutyScore={dutyScore}
+                game={game}
+                user={user}
+              />
+            );
           })}
         </div>
         <div className="tasksvertical">
           <UserAvatar name={user.name} />
 
           <div className="">
-            {Object.keys(user.duty_scores).map(function(duty) {
-              const dutyScore = user.duty_scores[duty];
+            {Object.keys(user.duty_score).map(function(duty) {
+              const dutyScore = user.duty_score[duty];
               return <Duty name={duty} score={dutyScore} />;
             })}
           </div>

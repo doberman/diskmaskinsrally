@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { doCreateUserWithEmailAndPassword } from "./Firebase";
+import { doCreateUserWithEmailAndPassword, withFirestore } from "./Firebase";
 import PropTypes from "prop-types";
 
 const INITIAL_STATE = {
@@ -15,17 +15,25 @@ class CreateUser extends Component {
   state = { ...INITIAL_STATE };
 
   handleSubmit = e => {
-    const { username, email, passwordOne } = this.state;
+    const { email, passwordOne } = this.state;
+    const { firestore } = this.props;
 
     doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push("/");
+        if (authUser.user) {
+          authUser.user
+            .updateProfile({
+              displayName: this.state.username
+            })
+            .then(s => {
+              this.setState({ ...INITIAL_STATE });
+              this.props.history.push("/");
+            });
+        }
       })
       .catch(error => {
         this.setState({ error });
       });
-
     e.preventDefault();
   };
 
@@ -72,7 +80,7 @@ class CreateUser extends Component {
               name="email"
               value={email}
               onChange={this.onChange}
-              type="text"
+              type="email"
             />
           </div>
           <div className="input-field">
@@ -110,4 +118,4 @@ class CreateUser extends Component {
   }
 }
 
-export default withRouter(CreateUser);
+export default withRouter(withFirestore(CreateUser));

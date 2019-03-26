@@ -12,8 +12,6 @@ export const withUsers = Component => {
     }
 
     componentDidMount() {
-      console.log("WITH USERS DID MOUNT");
-
       firestore.collection("users").onSnapshot(querySnapshot => {
         const users = querySnapshot.docs.map(doc => doc.data());
 
@@ -30,9 +28,7 @@ export const withUsers = Component => {
 
       console.log("WITH USERS PROPS", users);
 
-      return (
-        <Component {...this.props} ENPROPPAJAKEL="PROPPFAN" users={users} />
-      );
+      return <Component {...this.props} users={users} />;
     }
   };
 };

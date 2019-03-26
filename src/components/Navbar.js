@@ -5,16 +5,14 @@ import SignOutLinks from "./SignOutLinks";
 
 import "../css/navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ authUser }) => {
   return (
     <nav className="nav-wrapper background-color darken-3">
       <div className="container">
         <Link to="/" className="brand-logo">
           Diskrally
         </Link>
-
-        <SignInLinks />
-        <SignOutLinks />
+        {authUser ? <SignInLinks /> : <SignOutLinks />}
       </div>
     </nav>
   );

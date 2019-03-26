@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Duty from "./Duty";
+import ProgressBar from "./ProgressBar";
 import UserScore from "./UserScore";
 
 import "../css/taskRow.css";
@@ -19,10 +20,18 @@ function Scoreboard(props) {
       <div className="container_scoreboard">
         <h5>Add what you've done!</h5>
       </div>
-
+      <ProgressBar game={game} />
       <div className="container_scoreboard">
-        {game.users.map(user => (
-          <UserScore key={user.id} user={user} />
+        {Object.keys(game.users).map(userId => (
+          <UserScore
+            game={game}
+            key={userId}
+            // vill ha en ny lista av users i games där propertyn Uid också är inkluderad:
+            user={{
+              id: userId,
+              ...game.users[userId]
+            }}
+          />
         ))}
       </div>
     </div>
