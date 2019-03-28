@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword, withFirestore } from "./Firebase";
+import firebase from "firebase";
+
 import PropTypes from "prop-types";
 
 const INITIAL_STATE = {
@@ -26,6 +28,19 @@ class CreateUser extends Component {
               displayName: this.state.username
             })
             .then(s => {
+              const userId = firebase.auth().currentUser.uid;
+              const userEmail = firebase.auth().currentUser.email;
+              console.log(userEmail, userId);
+              firestore
+                .collection("users")
+                .doc(userId)
+                .set({
+                  friends: [],
+                  duties: [],
+                  id: userId,
+                  email: userEmail,
+                  displayName: this.state.username
+                });
               this.setState({ ...INITIAL_STATE });
               this.props.history.push("/");
             });

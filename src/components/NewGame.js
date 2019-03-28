@@ -57,14 +57,14 @@ class NewGame extends Component {
     }
 
     const currentUserEmail = currentUser.email;
-    const currentUserDuties = users.filter(
+    const theCurrentUser = users.filter(
       user => user.email === currentUserEmail
     );
 
-    const duties = currentUserDuties.map(
+    const theCurrentUsersDuties = theCurrentUser.map(
       currentUserDuty => currentUserDuty.duties
     )[0];
-    console.log("duties:", duties);
+    console.log("duties:", theCurrentUsersDuties);
 
     return (
       <div className="container">
@@ -79,7 +79,7 @@ class NewGame extends Component {
             <label htmlFor="title">Game title</label>
           </div>
           <p className="field-title">CHOOSE DUTY/IES</p>
-          {duties.map(duty => (
+          {theCurrentUsersDuties.map(duty => (
             <Checkbox duty={duty} />
           ))}
 
@@ -90,53 +90,29 @@ class NewGame extends Component {
               </span>
             </div>
           </div>
-          <div className="input-field">
-            <label htmlFor="prize">Prize</label>
-
-            <input
-              id="prize"
-              type="text"
-              name="prize"
-              onChange={this.handleChange}
-            />
-          </div>
-
           <div className="button-user-field input-field">
             <div className="button-user">
-              <div>
-                <p className="field-title">COMPETITOR</p>
-                <label htmlFor="button_1_user1">
-                  <input
-                    id="button_1_user1"
-                    name="group1"
-                    type="radio"
-                    onChange={this.handleChange}
-                  />
-                  <span>User 1</span>
-                </label>
-              </div>
-              <div>
-                <label htmlFor="button_1_user2">
-                  <input
-                    id="button_1_user2"
-                    name="group1"
-                    type="radio"
-                    onChange={this.handleChange}
-                  />
-                  <span>User 2</span>
-                </label>
-              </div>
+              <p className="field-title">COMPETITOR</p>
               <div>
                 <span>
                   <NewUser />
                 </span>
-              </div>{" "}
+              </div>
             </div>
           </div>
           <div className="input-field">
             <label htmlFor="days">Days</label>
 
             <DatePicker selected={this.state.startDate} />
+          </div>
+          <div className="input-field">
+            <label htmlFor="prize">Prize</label>
+            <input
+              id="prize"
+              type="text"
+              name="prize"
+              onChange={this.handleChange}
+            />
           </div>
 
           <button className="btn" type="submit">
