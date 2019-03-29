@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../css/progressBar.css";
+import "./ProgressBar.scss";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -23,16 +23,17 @@ class ProgressBar extends Component {
 
     const inBar = daysDone + "/" + totalDaysOfGame;
     return (
-      <div className="container">
-        <div className="flex">
-          <div className="circle flex">
-            <div className="progressBar-text">
-              <div>days</div>
+      <>
+        <div className="progress-bar flex">
+          <div className="progress-bar__circle flex">
+            <div className="progress-bar__circle-text">
+              <div>day</div>
               {inBar}
             </div>
           </div>
 
           <CircularProgressbar
+            className="progress-bar__circle-progress"
             percentage={percentage}
             background={false}
             strokeWidth={4}
@@ -51,7 +52,7 @@ class ProgressBar extends Component {
             }}
           />
         </div>
-      </div>
+      </>
     );
   }
 }

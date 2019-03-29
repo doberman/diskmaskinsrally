@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import { firestore } from "./Firebase";
-import { withUsers } from "./hoc/withAuthUser";
+import { firestore } from "../Firebase";
+import { withUsers } from "../hoc/withAuthUser";
 
 class CreateFriend extends Component {
   state = {};
@@ -10,10 +10,11 @@ class CreateFriend extends Component {
     e.preventDefault();
     const { field } = this.props;
     const userId = firebase.auth().currentUser.uid;
+    const currentUserEmail = firebase.auth().currentUser.email;
     const { users } = this.props;
-    const userEmail = users.filter(email => email.email === this.state[field]);
-    console.log("userEmail", userEmail);
-    if (userEmail.length !== 0) {
+    const userEmail = users.filter(user => user.email === this.state[field]);
+
+    if (userEmail.length !== 0 && this.state[field] !== currentUserEmail) {
       firestore
         .collection("users")
         .doc(userId)

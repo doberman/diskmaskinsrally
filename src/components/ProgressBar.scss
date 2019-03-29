@@ -1,11 +1,7 @@
-.flex {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  font-size: 20px;
+.progress-bar {
 }
 
-.circle {
+.progress-bar__circle {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -19,7 +15,7 @@
   position: absolute;
 }
 
-.progressBar-text {
+.progress-bar__circle-text {
   position: absolute;
   top: 50%;
   left: 50%;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import { withFirestore } from "./Firebase";
 
-import "../css/button.css";
+import "../scss/modules/button.scss";
 
 class Button extends Component {
   handleCount = e => {
