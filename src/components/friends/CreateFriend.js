@@ -36,6 +36,7 @@ class CreateFriend extends Component {
     const { field } = this.props;
     return (
       <div>
+        <p>Add friend:</p>
         <form onSubmit={this.handleSubmit}>
           <input
             name={field}

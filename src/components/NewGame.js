@@ -8,20 +8,25 @@ import firebase from "firebase";
 import { withFirestore } from "./Firebase";
 import { withUsers } from "./hoc/withAuthUser";
 import Checkbox from "./Checkbox";
+import { NavLink } from "react-router-dom";
 
 class NewGame extends Component {
-  state = {
-    active: false,
-    day_start: {},
-    day_end: "",
-    duties: [],
-    prize: "",
-    title: "",
-    users: {
-      duty_score: {},
-      name: ""
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: false,
+      day_start: new Date(),
+      day_end: new Date(),
+      duties: [],
+      prize: "",
+      title: "",
+      users: {
+        duty_score: {},
+        name: ""
+      }
+    };
+    this.handleDateChange = this.handleDateChange.bind(this);
+  }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -31,7 +36,7 @@ class NewGame extends Component {
     firestore.collection("games").add({
       active: false,
       day_start: new Date(),
-      day_end: "",
+      day_end: this.state.day_end,
       duties: [],
       prize: this.state.prize,
       title: this.state.title,
@@ -46,6 +51,11 @@ class NewGame extends Component {
       [e.target.id]: e.target.value
     });
   };
+  handleDateChange(date) {
+    this.setState({
+      day_end: date
+    });
+  }
 
   render() {
     const { users } = this.props;
@@ -60,6 +70,9 @@ class NewGame extends Component {
     const theCurrentUser = users.filter(
       user => user.email === currentUserEmail
     );
+    const theCurrentUsersFriends = theCurrentUser.map(
+      currentUserFriend => currentUserFriend.friends
+    )[0];
 
     const theCurrentUsersDuties = theCurrentUser.map(
       currentUserDuty => currentUserDuty.duties
@@ -85,25 +98,26 @@ class NewGame extends Component {
 
           <div className="input-field">
             <div>
-              <span>
-                <a href="">+ add new duty</a>
-              </span>
+              <NavLink to="/profile">+ add new duty</NavLink>
             </div>
           </div>
           <div className="button-user-field input-field">
             <div className="button-user">
               <p className="field-title">COMPETITOR</p>
               <div>
-                <span>
-                  <NewUser />
-                </span>
+                {theCurrentUsersFriends.map(friend => (
+                  <Checkbox duty={friend} />
+                ))}
+                <NavLink to="/profile">+ add new user</NavLink>
               </div>
             </div>
           </div>
+          <span className="field-title">End date:</span>
           <div className="input-field">
-            <label htmlFor="days">Days</label>
-
-            <DatePicker selected={this.state.startDate} />
+            <DatePicker
+              selected={this.state.day_end}
+              onChange={this.handleDateChange}
+            />
           </div>
           <div className="input-field">
             <label htmlFor="prize">Prize</label>

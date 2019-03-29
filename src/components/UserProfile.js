@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withCurrentUser } from "./hoc/withCurrentUser";
 import CreateDuty from "./CreateDuty";
-import CreateFriend from "./friends/CreateFriend";
 import Bar from "./profile/Bar";
 import FriendZone from "./friends/FriendZone";
 class UserProfile extends Component {
@@ -15,8 +14,6 @@ class UserProfile extends Component {
         <Bar />
         <p className="">Add duties:</p>
         <CreateDuty field="duties" />
-        <p className="">Add friends:</p>
-        <CreateFriend field="friends" />
         <FriendZone />
       </div>
     );

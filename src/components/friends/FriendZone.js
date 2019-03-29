@@ -3,6 +3,7 @@ import { withUsers } from "../hoc/withAuthUser";
 import firebase from "firebase";
 import { firestore } from "../Firebase";
 import Friends from "../friends/Friends";
+import CreateFriend from "../friends/CreateFriend";
 
 class FriendZone extends Component {
   state = {};
@@ -30,11 +31,9 @@ class FriendZone extends Component {
     if (!userId || friends.length === 0) {
       return null;
     }
-
-    console.log("friends:", friends);
-
     return (
       <div>
+        <CreateFriend field="friends" />
         <Friends friends={friends} deleteFriend={this.deleteFriend} />
       </div>
     );
