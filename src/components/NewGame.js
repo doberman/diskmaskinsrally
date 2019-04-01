@@ -17,7 +17,6 @@ class NewGame extends Component {
       active: false,
       day_start: new Date(),
       day_end: new Date(),
-      duties: [],
       prize: "",
       title: "",
       users: {
@@ -37,7 +36,6 @@ class NewGame extends Component {
       active: false,
       day_start: new Date(),
       day_end: this.state.day_end,
-      duties: [],
       prize: this.state.prize,
       title: this.state.title,
       users: {
@@ -51,6 +49,54 @@ class NewGame extends Component {
       [e.target.id]: e.target.value
     });
   };
+
+  handleDutyChange = e => {
+    if (e.target.checked) {
+      this.setState({
+        users: {
+          ...this.state.users,
+          duty_score: {
+            ...this.state.users.duty_score,
+            [e.target.id]: 0
+          }
+        }
+      });
+    } else {
+      const currentDutyScore = this.state.users.duty_score;
+      delete currentDutyScore[e.target.id];
+      this.setState(prevState => {
+        return {
+          users: {
+            ...prevState.users,
+            duty_score: currentDutyScore
+          }
+        };
+      });
+    }
+  };
+
+  handleFriendChange = e => {
+    if (e.target.checked) {
+      this.setState({
+        users: {
+          ...this.state.users,
+          name: e.target.id
+        }
+      });
+    } else {
+      const currentFriend = this.state.users.name;
+      delete currentFriend[e.target.id];
+      this.setState(prevState => {
+        return {
+          users: {
+            ...prevState.users,
+            name: currentFriend
+          }
+        };
+      });
+    }
+  };
+
   handleDateChange(date) {
     this.setState({
       day_end: date
@@ -93,7 +139,11 @@ class NewGame extends Component {
           </div>
           <p className="field-title">CHOOSE DUTY/IES</p>
           {theCurrentUsersDuties.map(duty => (
-            <Checkbox duty={duty} />
+            <Checkbox
+              onChange={this.handleDutyChange}
+              item={duty}
+              type="checkbox"
+            />
           ))}
 
           <div className="input-field">
@@ -106,7 +156,12 @@ class NewGame extends Component {
               <p className="field-title">COMPETITOR</p>
               <div>
                 {theCurrentUsersFriends.map(friend => (
-                  <Checkbox duty={friend} />
+                  <Checkbox
+                    onChange={this.handleFriendChange}
+                    name="Friends"
+                    item={friend}
+                    type="radio"
+                  />
                 ))}
                 <NavLink to="/profile">+ add new user</NavLink>
               </div>
