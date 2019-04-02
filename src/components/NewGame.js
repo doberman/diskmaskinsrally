@@ -20,8 +20,14 @@ class NewGame extends Component {
       prize: "",
       title: "",
       users: {
-        duty_score: {},
-        name: ""
+        1: {
+          duty_score: {},
+          name: ""
+        },
+        2: {
+          duty_score: {},
+          name: ""
+        }
       }
     };
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -39,10 +45,17 @@ class NewGame extends Component {
       prize: this.state.prize,
       title: this.state.title,
       users: {
-        duty_score: {},
-        name: ""
+        1: {
+          duty_score: this.state.users[1].duty_score,
+          name: this.state.users[1].name
+        },
+        2: {
+          duty_score: this.state.users[2].duty_score,
+          name: this.state.users[2].name
+        }
       }
     });
+    this.props.history.push("/");
   };
   handleChange = e => {
     this.setState({
@@ -54,21 +67,37 @@ class NewGame extends Component {
     if (e.target.checked) {
       this.setState({
         users: {
-          ...this.state.users,
-          duty_score: {
-            ...this.state.users.duty_score,
-            [e.target.id]: 0
+          1: {
+            ...this.state.users[1],
+            duty_score: {
+              ...this.state.users[1].duty_score,
+              [e.target.id]: 0
+            }
+          },
+          2: {
+            ...this.state.users[2],
+            duty_score: {
+              ...this.state.users[2].duty_score,
+              [e.target.id]: 0
+            }
           }
         }
       });
     } else {
-      const currentDutyScore = this.state.users.duty_score;
+      const currentDutyScore = this.state.users[1].duty_score;
+      console.log("currentDutyScore", currentDutyScore);
       delete currentDutyScore[e.target.id];
       this.setState(prevState => {
         return {
           users: {
-            ...prevState.users,
-            duty_score: currentDutyScore
+            1: {
+              ...prevState.users.duty_score,
+              duty_score: currentDutyScore
+            },
+            2: {
+              ...prevState.users.duty_score,
+              duty_score: currentDutyScore
+            }
           }
         };
       });
@@ -77,20 +106,34 @@ class NewGame extends Component {
 
   handleFriendChange = e => {
     if (e.target.checked) {
+      const currentUser = firebase.auth().currentUser;
+      if (!currentUser) {
+        return null;
+      }
+
+      const currentUserEmail = currentUser.email;
       this.setState({
         users: {
-          ...this.state.users,
-          name: e.target.id
+          1: {
+            ...this.state.users[1],
+            name: e.target.id
+          },
+          2: {
+            ...this.state.users[2],
+            name: currentUserEmail
+          }
         }
       });
     } else {
-      const currentFriend = this.state.users.name;
+      const currentFriend = this.state.users[1].name;
       delete currentFriend[e.target.id];
       this.setState(prevState => {
         return {
           users: {
-            ...prevState.users,
-            name: currentFriend
+            1: {
+              ...prevState.users[1],
+              name: currentFriend
+            }
           }
         };
       });

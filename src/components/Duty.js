@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
+
 import "../css/taskRow.css";
 
 const Duty = props => {
-  const { name, score } = props;
+  const { name, score, game } = props;
 
   return (
     <div className="tasks">

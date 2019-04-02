@@ -12,8 +12,6 @@ export const withGames = ComponentToWrap => {
     }
 
     componentDidMount() {
-      console.log("WITH GAMES DID MOUNT");
-
       firestore.collection("games").onSnapshot(querySnapshot => {
         const games = querySnapshot.docs.map(doc => {
           doc.data();
@@ -21,7 +19,6 @@ export const withGames = ComponentToWrap => {
             id: doc.id,
             ...doc.data()
           };
-          console.log("DOC:", doc);
         });
 
         this.setState({
@@ -34,6 +31,28 @@ export const withGames = ComponentToWrap => {
 
     render() {
       const { games } = this.state;
+
+      const days_passed = stopDate => {
+        const futureDate = stopDate;
+        const current = new Date().getTime();
+        return Math.ceil((futureDate - current) / 86400000);
+      };
+
+      games.map(game => {
+        // Get total days of game
+        const endDate = game.day_end.seconds;
+        const startDate = game.day_start.seconds;
+        const totalDaysOfGame = Math.ceil((endDate - startDate) / 86400);
+
+        const daysToEnd = days_passed(endDate * 1000);
+
+        game.daysToEnd = daysToEnd;
+        return game.daysToEnd < 0
+          ? (game.active = false)
+          : (game.active = true);
+
+        games.push(game);
+      });
 
       console.log("WITH GAMES PROPS", games);
 

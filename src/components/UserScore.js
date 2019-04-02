@@ -32,7 +32,7 @@ class UserScore extends Component {
           <div className="">
             {Object.keys(user.duty_score).map(function(duty) {
               const dutyScore = user.duty_score[duty];
-              return <Duty name={duty} score={dutyScore} />;
+              return <Duty game={game} name={duty} score={dutyScore} />;
             })}
           </div>
 

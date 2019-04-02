@@ -15,19 +15,6 @@ class Button extends Component {
       firestore
     } = this.props;
 
-    const dutyPath = "users." + userId + ".duty_score." + dutyName;
-    const dutyPath2 = `users.${userId}.duty_score.${dutyName}`;
-    console.log("dutyPath:", dutyPath, "dutyPath2:", dutyPath2);
-    console.log(
-      "dutyPath:",
-      firestore
-        .collection("games")
-        .doc(gameId)
-        .update({
-          [`users.${userId}.duty_score.${dutyName}`]: dutyScore + 1
-        })
-    );
-
     firestore
       .collection("games")
       .doc(gameId)
