@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import firebase from "firebase";
 import { withFirestore } from "./Firebase";
 
@@ -26,7 +26,7 @@ class Button extends Component {
   render() {
     const { dutyName } = this.props;
     return (
-      <div className="container_scoreboard">
+      <Fragment>
         <div style={{ padding: "50px" }}>
           <span style={{ display: "block" }}>{dutyName}</span>
           <a
@@ -38,7 +38,7 @@ class Button extends Component {
             +
           </a>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }

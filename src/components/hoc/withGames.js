@@ -39,7 +39,7 @@ export const withGames = ComponentToWrap => {
       };
 
       games.map(game => {
-        // Get total days of game
+        // Game active if days to end is less than 0
         const endDate = game.day_end.seconds;
         const startDate = game.day_start.seconds;
         const totalDaysOfGame = Math.ceil((endDate - startDate) / 86400);

@@ -4,42 +4,45 @@ import Button from "./Button";
 import "../css/taskRow.css";
 import avatar from "../assets/avatar.svg";
 import UserAvatar from "./UserAvatar";
+import { withCurrentUser } from "./hoc/withCurrentUser";
 
 class UserScore extends Component {
   render() {
-    const { user, game } = this.props;
+    const { user, game, authUser } = this.props;
     console.log("game:", game);
     console.log("user:", user);
+    if (authUser.length === 0) {
+      return null;
+    }
+    console.log("authUser.email:", authUser.email);
     return (
       <div>
-        <div className="container_scoreboard">
+        <div style={{ display: "flex" }}>
           {Object.keys(user.duty_score).map(function(duty) {
             const dutyScore = user.duty_score[duty];
-
-            return (
+            return user.name === authUser.email ? (
               <Button
                 dutyName={duty}
                 dutyScore={dutyScore}
                 game={game}
                 user={user}
               />
-            );
+            ) : null;
           })}
         </div>
-        <div className="tasksvertical">
-          <UserAvatar name={user.name} />
 
-          <div className="">
-            {Object.keys(user.duty_score).map(function(duty) {
-              const dutyScore = user.duty_score[duty];
-              return <Duty game={game} name={duty} score={dutyScore} />;
-            })}
-          </div>
+        <UserAvatar name={user.name} />
 
-          <div />
+        <div className="container_duties">
+          {Object.keys(user.duty_score).map(function(duty) {
+            const dutyScore = user.duty_score[duty];
+            return <Duty game={game} name={duty} score={dutyScore} />;
+          })}
         </div>
+
+        <div />
       </div>
     );
   }
 }
-export default UserScore;
+export default withCurrentUser(UserScore);
