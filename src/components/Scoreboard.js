@@ -10,12 +10,29 @@ function Scoreboard(props) {
   const { games } = props;
   if (games.length === 0) {
     return null;
-  }
+  } //get first active game
   const game = games.filter(game => {
     return game.active;
   })[0];
 
-  return (
+  const duties = Object.values(game.users).map(userDuty => {
+    return userDuty.duty_score;
+  });
+
+  // const bla = duties.map(x => {
+  //   x.total = Object.values(x);
+  //   return x.total;
+  // });
+
+  console.log("duties", duties);
+
+  // if time's up show game results
+  return game.daysToEnd === 0 ? (
+    <div className="container_scoreboard">
+      <h1>The winner is:</h1>
+      <h1> {game.users[1].name} :D </h1>
+    </div>
+  ) : (
     <div>
       <div className="container_scoreboard">
         <h5>Add what you've done!</h5>

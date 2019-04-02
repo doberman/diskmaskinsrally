@@ -24,8 +24,6 @@ export const withGames = ComponentToWrap => {
         this.setState({
           games
         });
-
-        console.log("Games: ", games);
       });
     }
 
@@ -50,11 +48,7 @@ export const withGames = ComponentToWrap => {
         return game.daysToEnd < 0
           ? (game.active = false)
           : (game.active = true);
-
-        games.push(game);
       });
-
-      console.log("WITH GAMES PROPS", games);
 
       return <ComponentToWrap {...this.props} games={games} />;
     }

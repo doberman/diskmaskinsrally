@@ -14,7 +14,6 @@ class UserScore extends Component {
     if (authUser.length === 0) {
       return null;
     }
-    console.log("authUser.email:", authUser.email);
     return (
       <div>
         <div style={{ display: "flex" }}>
@@ -31,7 +30,7 @@ class UserScore extends Component {
           })}
         </div>
 
-        <UserAvatar name={user.name} />
+        <UserAvatar name={user.name} authUser={authUser} />
 
         <div className="container_duties">
           {Object.keys(user.duty_score).map(function(duty) {
