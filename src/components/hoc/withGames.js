@@ -29,11 +29,11 @@ export const withGames = ComponentToWrap => {
 
     render() {
       const { games } = this.state;
+      console.log("WITH GAMES:", games);
 
       const days_passed = stopDate => {
-        const futureDate = stopDate;
         const current = new Date().getTime();
-        return Math.ceil((futureDate - current) / 86400000);
+        return Math.ceil((stopDate - current) / 86400000);
       };
 
       games.map(game => {

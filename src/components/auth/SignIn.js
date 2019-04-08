@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewUser from "../NewUser";
 import { Link, withRouter } from "react-router-dom";
 import { doSignInWithEmailAndPassword } from "../Firebase";
+import { doSendEmailVerification } from "../Firebase";
 
 const INITIAL_STATE = {
   email: "",
@@ -33,6 +34,15 @@ class SignIn extends Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onForgotPassword = e => {
+    e.preventDefault();
+    const { email } = this.state;
+    console.log(email);
+
+    doSendEmailVerification(email);
+    // Lägg till then function somn inte är of null?????
   };
 
   render() {
@@ -71,6 +81,9 @@ class SignIn extends Component {
           <Link to="/signup" className="">
             <p>Don't have an account?</p>
           </Link>
+          <a href="#" onClick={this.onForgotPassword}>
+            Forgot password?
+          </a>
 
           {error && <p>{error.message}</p>}
         </form>

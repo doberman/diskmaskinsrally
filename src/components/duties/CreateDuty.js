@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import { firestore } from "./Firebase";
+import { firestore } from "../Firebase";
 
 class CreateDuty extends Component {
   state = {};
@@ -25,9 +25,11 @@ class CreateDuty extends Component {
   render() {
     const { value } = this.state;
     const { field, onSubmit } = this.props;
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <p>Add duty:</p>
           <input
             name={field}
             value={value}

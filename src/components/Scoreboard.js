@@ -2,39 +2,31 @@ import React, { Fragment } from "react";
 import Duty from "./Duty";
 import ProgressBar from "./ProgressBar";
 import UserScore from "./UserScore";
+import { getDutyTotalForGame } from "../utils/getDutyTotalsForGame";
 
 import "../css/taskRow.css";
 import { withGames } from "./hoc/withGames";
 
 function Scoreboard(props) {
+  const pathname = window.location.pathname.replace("/scoreboard/", "");
+  console.log("pathname", pathname);
+
   const { games } = props;
   if (games.length === 0) {
     return null;
   } //get first active game
+
   const game = games.filter(game => {
-    return game.active;
+    return game.id === pathname;
   })[0];
 
-  const duties = Object.values(game.users).map(userDuty => {
-    return userDuty.duty_score;
-  });
-
-  // const bla = duties.map(x => {
-  //   x.total = Object.values(x);
-  //   return x.total;
-  // });
-
-  console.log("duties", duties);
-
-  // if time's up show game results
-  return game.daysToEnd === 0 ? (
-    <div className="container_scoreboard">
-      <h1>The winner is:</h1>
-      <h1> {game.users[1].name} :D </h1>
-    </div>
-  ) : (
+  const dutyTotals = getDutyTotalForGame(game);
+  return (
     <div>
       <div className="container_scoreboard">
+        <h1>{game.title}</h1>
+        {game.daysToEnd === 1 && "LAST DAY!!!!"}
+        {game.active === false && "Old game"}
         <h5>Add what you've done!</h5>
       </div>
       <ProgressBar game={game} />
@@ -43,6 +35,7 @@ function Scoreboard(props) {
           <UserScore
             game={game}
             key={userId}
+            dutyTotals={dutyTotals}
             // vill ha en ny lista av users i games där propertyn Uid också är inkluderad:
             user={{
               id: userId,

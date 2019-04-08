@@ -6,9 +6,8 @@ import "react-circular-progressbar/dist/styles.css";
 class ProgressBar extends Component {
   render() {
     const days_passed = stopDate => {
-      const futureDate = stopDate;
       const current = new Date().getTime();
-      return Math.ceil((futureDate - current) / 86400000);
+      return Math.ceil((stopDate - current) / 86400000);
     };
     const { user, game } = this.props;
 

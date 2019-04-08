@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import { withUsers } from "../hoc/withAuthUser";
 import firebase from "firebase";
 import { firestore } from "../Firebase";
-import Friends from "../friends/Friends";
-import CreateFriend from "../friends/CreateFriend";
+import Duties from "../duties/Duties";
+import CreateDuty from "../duties/CreateDuty";
 
-class FriendZone extends Component {
+class DutyZone extends Component {
   state = {};
 
-  deleteFriend = email => {
+  deleteDuty = dutyName => {
     const userId = firebase.auth().currentUser.uid;
 
-    console.log("email", email);
+    console.log("email", dutyName);
 
     firestore
       .collection("users")
       .doc(userId)
       .update({
-        friends: firebase.firestore.FieldValue.arrayRemove(email)
+        duties: firebase.firestore.FieldValue.arrayRemove(dutyName)
       });
   };
 
@@ -27,17 +27,17 @@ class FriendZone extends Component {
     if (!userId || users.length === 0) {
       return null;
     }
-    const friends = users.filter(user => user.id === userId)[0].friends;
+    const duties = users.filter(user => user.id === userId)[0].duties;
     if (!userId) {
       return null;
     }
     return (
       <div style={{ margin: "20px" }}>
-        <CreateFriend field="friends" />
-        <p>My friends:</p>
-        <Friends friends={friends} deleteFriend={this.deleteFriend} />
+        <CreateDuty field="duties" />
+        <p>My duties:</p>
+        <Duties duties={duties} deleteDuty={this.deleteDuty} />
       </div>
     );
   }
 }
-export default withUsers(FriendZone);
+export default withUsers(DutyZone);

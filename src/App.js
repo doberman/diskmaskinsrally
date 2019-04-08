@@ -3,6 +3,8 @@ import "./App.css";
 import Scoreboard from "../src/components/Scoreboard";
 import Navbar from "./components/Navbar";
 import Button from "./components/Button";
+import Start from "./components/Start";
+
 import NewGame from "./components/NewGame";
 import UserProfile from "./components/UserProfile";
 import NewUser from "./components/NewUser";
@@ -38,7 +40,8 @@ class App extends Component {
           <Navbar authUser={this.state.authUser} />
           <div className="App-content">
             <Switch>
-              <Route exact path="/" component={Scoreboard} />
+              <Route exact path="/" component={Start} />
+              <Route path="/scoreboard" component={Scoreboard} />
               <Route path="/newgame" component={NewGame} />
               <Route path="/profile" component={UserProfile} />
               <Route path="/signin" component={SignIn} />

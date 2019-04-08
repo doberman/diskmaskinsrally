@@ -4,7 +4,9 @@ import { firestore } from "../Firebase";
 import { withUsers } from "../hoc/withAuthUser";
 
 class CreateFriend extends Component {
-  state = {};
+  state = {
+    error: ""
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -23,10 +25,12 @@ class CreateFriend extends Component {
         });
     } else {
       console.log("No user with email:", this.state[field]);
+      this.setState({ error: "No user with email: " + this.state[field] });
     }
   };
 
   onChange = e => {
+    this.setState({ error: "" });
     this.setState({ [e.target.name]: e.target.value });
     // console.log("this.state.field:", this.state[field]);
   };
@@ -45,6 +49,7 @@ class CreateFriend extends Component {
             type="text"
           />
         </form>
+        <p>{this.state.error}</p>
       </div>
     );
   }
