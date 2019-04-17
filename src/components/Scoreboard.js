@@ -1,5 +1,4 @@
-import React, { Fragment } from "react";
-import Duty from "./Duty";
+import React from "react";
 import ProgressBar from "./ProgressBar";
 import UserScore from "./UserScore";
 import { getDutyTotalForGame } from "../utils/getDutyTotalsForGame";

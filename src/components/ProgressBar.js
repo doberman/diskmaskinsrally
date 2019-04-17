@@ -9,7 +9,7 @@ class ProgressBar extends Component {
       const current = new Date().getTime();
       return Math.ceil((stopDate - current) / 86400000);
     };
-    const { user, game } = this.props;
+    const { game } = this.props;
 
     // Get total days of game
     const endDate = game.day_end.seconds;

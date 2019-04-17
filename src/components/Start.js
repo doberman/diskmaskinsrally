@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import ThemeButton from "./ThemeButton";
 import { withCurrentUser } from "./hoc/withCurrentUser";
 

@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import "../css/taskRow.css";
 
 const Duty = props => {
-  const { name, score, game, dutyT } = props;
+  const { name, score, dutyT } = props;
   console.log(dutyT);
   return (
     <div className="tasks">

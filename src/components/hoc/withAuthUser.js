@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { firestore } from "../Firebase";
 
 export const withUsers = Component => {

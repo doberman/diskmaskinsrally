@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import Duty from "./Duty";
+import React from "react";
 import "../css/taskRow.css";
 import avatar from "../assets/avatar.svg";
 

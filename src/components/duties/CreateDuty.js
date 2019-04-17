@@ -24,7 +24,7 @@ class CreateDuty extends Component {
 
   render() {
     const { value } = this.state;
-    const { field, onSubmit } = this.props;
+    const { field } = this.props;
 
     return (
       <div>
