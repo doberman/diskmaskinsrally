@@ -1,5 +1,5 @@
-import React from "react";
-import "../css/taskRow.css";
+import React, { Fragment } from "react";
+// import "../css/taskRow.css";
 import avatar from "../assets/avatar.svg";
 
 const UserAvatar = props => {
@@ -9,13 +9,13 @@ const UserAvatar = props => {
   // const gameUserName = gameUser.map(g => g.map(gh => <div>{gh.name}</div>));
 
   return (
-    <div className="tasksvertical">
-      <img style={{ width: 80 }} src={avatar} alt="avatar" />
+    <Fragment>
+      <img style={{ width: 60 }} src={avatar} alt="avatar" />
       <p>
         {name === authUser.email && "Me"}
         {name !== authUser.email && name}
       </p>
-    </div>
+    </Fragment>
   );
 };
 export default UserAvatar;

@@ -1,3 +1,8 @@
+//gradiant greens
+$color-green-2: #219752;
+$color-green-3: #1c8044;
+$color-green-4-x: #176938;
+
 .gobutton {
   position: relative;
   width: 100px;
@@ -7,8 +12,8 @@
   font-size: 36px;
   font-family: "Arial Narrow", sans-serif;
   font-weight: bold;
-  color: rgb(165, 190, 197);
-  text-shadow: 2px 2px #fff;
+  color: $color-green-4-x;
+  text-shadow: 1px 1px $color-green;
 
   text-decoration: none;
 }
@@ -19,11 +24,11 @@
   height: 70%;
   top: 15%;
   left: 15%;
-  border: 1px solid #eee;
+  border: 1px solid $color-green-2;
   border-radius: 50%;
-  box-shadow: 0 1px 0 #ccc;
+  box-shadow: 0 1px 0 $color-green-3;
   box-sizing: border-box;
-  background: #fefefe;
+  background: $color-green;
   z-index: -1;
 }
 .gobutton:after {
@@ -33,16 +38,16 @@
   height: 52%;
   top: 24%;
   left: 24%;
-  border: 1px solid #eee;
+  border: 1px solid $color-green-2;
   border-radius: 50%;
-  background: linear-gradient(to bottom, #fefefe 0%, #eee 100%);
-  box-shadow: 0 1px 0px #ccc;
+  background: linear-gradient(to bottom, $color-green 0%, $color-green-2 100%);
+  box-shadow: 0 1px 0px $color-green-3;
   box-sizing: border-box;
   z-index: -1;
 }
 .gobutton:active:before {
-  box-shadow: 0 -1px 0 #ccc;
+  box-shadow: 0 -1px 0 $color-green-3;
 }
 .gobutton:active:after {
-  box-shadow: 0 1px 0px #ccc, 0 1px 0px #ccc inset;
+  box-shadow: 0 1px 0px $color-green-3, 0 1px 0px $color-green-3 inset;
 }

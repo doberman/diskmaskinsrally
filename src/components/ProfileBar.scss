@@ -1,0 +1,10 @@
+.profile-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.profile-bar__box-text {
+  padding: 30px;
+  background-color: grey;
+}

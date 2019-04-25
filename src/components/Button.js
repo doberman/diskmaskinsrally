@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 import firebase from "firebase";
 import { withFirestore } from "./Firebase";
 
-import "../scss/modules/button.scss";
-
 class Button extends Component {
   handleCount = e => {
     e.preventDefault();
@@ -25,6 +23,7 @@ class Button extends Component {
 
   render() {
     const { dutyName } = this.props;
+
     return (
       <Fragment>
         <div style={{ padding: "50px" }}>

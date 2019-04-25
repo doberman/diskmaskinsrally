@@ -5,3 +5,14 @@
 $color-white: #fff;
 $color-black: #000;
 $color-typography-base: $color-black;
+
+$color-lightgreyblue: #3e3d4a;
+$color-darkblue: #1f1f2a;
+$color-red: #eb004c;
+$color-green: #27ae60;
+
+$color-background: linear-gradient(
+  180deg,
+  $color-lightgreyblue 0%,
+  $color-darkblue 100%
+);

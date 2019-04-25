@@ -5,6 +5,20 @@ import FriendZone from "./friends/FriendZone";
 import DutyZone from "./duties/DutyZone";
 import ShowGames from "./games/ShowGames";
 
+import "./ProfileBar.scss";
+
+export const ProfileBar = () => {
+  return (
+    <div>
+      <div className="profile-bar">
+        <div className="profile-bar__box-text">Friends</div>
+        <div className="profile-bar__box-text">Duties</div>
+        <div className="profile-bar__box-text">Games</div>
+      </div>
+    </div>
+  );
+};
+
 class UserProfile extends Component {
   state = {};
   render() {
@@ -13,6 +27,7 @@ class UserProfile extends Component {
     return (
       <div>
         <h1>{authUser.displayName}</h1>
+        <ProfileBar />
         <div style={{ display: "flex" }}>
           <DutyZone />
           <FriendZone />
@@ -23,10 +38,3 @@ class UserProfile extends Component {
   }
 }
 export default withCurrentUser(UserProfile);
-//Om ett game är slut så ska man få det som notis på Profilsidan.
-// return (game.daysToEnd === 0 ? (
-//   <div className="container_scoreboard">
-//     <h1>The winner is:</h1>
-//     <h1> {game.users[1].name} :D </h1>
-//   </div>
-// ) : 'hej'

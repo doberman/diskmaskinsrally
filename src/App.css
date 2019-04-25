@@ -1,7 +1,7 @@
 .App-content {
   /* text-align: center; */
   display: flex;
-  padding-top: 100px;
+  padding-top: 10px;
   padding-bottom: 100px;
   flex-direction: column;
   align-items: center;

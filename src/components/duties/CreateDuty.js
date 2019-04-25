@@ -19,7 +19,6 @@ class CreateDuty extends Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-    // console.log("this.state.field:", this.state[field]);
   };
 
   render() {
