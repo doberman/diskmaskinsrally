@@ -8,7 +8,6 @@ import { withCurrentUser } from "./hoc/withCurrentUser";
 class UserScore extends Component {
   render() {
     const { user, game, authUser, dutyTotals } = this.props;
-    console.log("Userscore prop", this.props);
     if (!authUser) {
       return null;
     }

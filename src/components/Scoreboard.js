@@ -43,8 +43,6 @@ function Scoreboard(props) {
       Object.keys(gameUsers).forEach(userId => {
         if (gameUsers[userId].name === c.email) {
           return (gameUsers[userId].displayName = c.displayName);
-        } else {
-          console.log("");
         }
       });
     }
@@ -67,17 +65,15 @@ function Scoreboard(props) {
           {Object.keys(game.users).map(userId => {
             return Object.keys(game.users[userId].duty_score).map(duty => {
               const dutyScore = game.users[userId].duty_score[duty];
-              const userWithId = {
-                id: userId,
-                ...game.users[userId]
-              };
+
               return game.users[userId].name === authUser.email ? (
                 <Button
                   key={duty}
                   dutyName={duty}
                   dutyScore={dutyScore}
                   game={game}
-                  user={userWithId}
+                  // add id as prop in game.users.
+                  user={{ id: userId, ...game.users[userId] }}
                 />
               ) : null;
             });
@@ -85,13 +81,11 @@ function Scoreboard(props) {
         </div>
 
         {Object.keys(game.users).map(userId => {
-          console.log("huhuhuhuhuhuhu", game.users[userId]);
           return (
             <UserScore
               game={game}
               key={userId}
               dutyTotals={dutyTotals}
-              // add id as prop in game.users.
               user={{
                 id: userId,
                 ...game.users[userId]

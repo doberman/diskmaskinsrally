@@ -11,10 +11,16 @@ class ShowGames extends Component {
     if (!authUser) {
       return null;
     }
+    //get only auth users games
+    const currentUserGames = [];
 
-    const currentUserGames = games.filter(game => {
-      return game.user1 == authUser.email || game.user2 == authUser.email;
+    games.forEach(game => {
+      Object.keys(game.users).forEach(userId => {
+        if (game.users[userId].name === authUser.email)
+          return currentUserGames.push(game);
+      });
     });
+
     console.log("show games", currentUserGames);
 
     const style = game => ({
