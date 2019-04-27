@@ -5,16 +5,19 @@ import ProgressBar from "./ProgressBar";
 import UserScore from "./UserScore";
 import { getDutyTotalForGame } from "../utils/getDutyTotalsForGame";
 import { withCurrentUser } from "./hoc/withCurrentUser";
+import { withUsers } from "./hoc/withAuthUser";
 
 import "../css/taskRow.css";
 import { withGames } from "./hoc/withGames";
 
 function Scoreboard(props) {
   const pathname = window.location.pathname.replace("/scoreboard/", "");
-  console.log("pathname", pathname);
 
-  const { games, authUser } = props;
+  const { games, authUser, users } = props;
   if (!authUser) {
+    return null;
+  }
+  if (!users) {
     return null;
   }
   if (games.length === 0) {
@@ -27,6 +30,25 @@ function Scoreboard(props) {
   })[0];
 
   const dutyTotals = getDutyTotalForGame(game);
+
+  const usersDisplayName = Object.values(game.users).map(user => {
+    return users.filter(username => username.email === user.name)[0];
+  });
+
+  const gameUsers = Object.values(game.users).map(user => user);
+
+  // add display name (username) to game array
+  usersDisplayName.map(c => {
+    if (c) {
+      Object.keys(gameUsers).forEach(userId => {
+        if (gameUsers[userId].name === c.email) {
+          return (gameUsers[userId].displayName = c.displayName);
+        } else {
+          console.log("");
+        }
+      });
+    }
+  });
 
   return (
     <div>
@@ -51,6 +73,7 @@ function Scoreboard(props) {
               };
               return game.users[userId].name === authUser.email ? (
                 <Button
+                  key={duty}
                   dutyName={duty}
                   dutyScore={dutyScore}
                   game={game}
@@ -60,21 +83,25 @@ function Scoreboard(props) {
             });
           })}
         </div>
-        {Object.keys(game.users).map(userId => (
-          <UserScore
-            game={game}
-            key={userId}
-            dutyTotals={dutyTotals}
-            // add id as prop in users.
-            user={{
-              id: userId,
-              ...game.users[userId]
-            }}
-          />
-        ))}
+
+        {Object.keys(game.users).map(userId => {
+          console.log("huhuhuhuhuhuhu", game.users[userId]);
+          return (
+            <UserScore
+              game={game}
+              key={userId}
+              dutyTotals={dutyTotals}
+              // add id as prop in game.users.
+              user={{
+                id: userId,
+                ...game.users[userId]
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
 
-export default withCurrentUser(withGames(Scoreboard));
+export default withUsers(withCurrentUser(withGames(Scoreboard)));

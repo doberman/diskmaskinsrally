@@ -4,6 +4,7 @@ import CreateDuty from "./duties/CreateDuty";
 import FriendZone from "./friends/FriendZone";
 import DutyZone from "./duties/DutyZone";
 import ShowGames from "./games/ShowGames";
+import UserAvatar from "./UserAvatar";
 
 import "./ProfileBar.scss";
 
@@ -27,6 +28,12 @@ class UserProfile extends Component {
     return (
       <div>
         <h1>{authUser.displayName}</h1>
+        <UserAvatar
+          email={authUser.email}
+          authUser={authUser}
+          name={authUser.displayName}
+        />
+
         <ProfileBar />
         <div style={{ display: "flex" }}>
           <DutyZone />
