@@ -1,11 +1,5 @@
-@mixin flex-row {
+@mixin flex-column-center {
   display: flex;
-  flex-direction: row;
-}
-
-@mixin flex-column-scoreboard {
-  display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
@@ -26,12 +20,11 @@
 }
 
 .buttons-container {
-  @include flex-row;
-  justify-content: center;
-  flex-grow: 12;
-  width: 100%;
+  @include flex-column-center;
+  flex-direction: row;
 }
 
 .scoreboard-container {
-  @include flex-column-scoreboard();
+  @include flex-column-center;
+  flex-direction: column;
 }

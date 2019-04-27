@@ -18,8 +18,6 @@ class NewGame extends Component {
       day_start: new Date(),
       day_end: new Date(),
       prize: "",
-      user1: "",
-      user2: "",
       title: "",
       users: {
         1: {
@@ -44,8 +42,6 @@ class NewGame extends Component {
       day_start: new Date(),
       day_end: this.state.day_end,
       prize: this.state.prize,
-      user1: this.state.users[1].name,
-      user2: this.state.users[2].name,
       title: this.state.title,
       users: {
         1: {

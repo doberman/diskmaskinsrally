@@ -8,20 +8,52 @@ import UserAvatar from "./UserAvatar";
 
 import "./ProfileBar.scss";
 
-export const ProfileBar = () => {
+export const ProfileBar = props => {
   return (
-    <div>
-      <div className="profile-bar">
-        <div className="profile-bar__box-text">Friends</div>
-        <div className="profile-bar__box-text">Duties</div>
-        <div className="profile-bar__box-text">Games</div>
+    <div className="profile-bar">
+      <div
+        onClick={props.toggleDisplay}
+        id="friends"
+        className="profile-bar__box-text"
+      >
+        Friends
+      </div>
+      <div
+        onClick={props.toggleDisplay}
+        id="duties"
+        className="profile-bar__box-text"
+      >
+        Duties
+      </div>
+      <div
+        onClick={props.toggleDisplay}
+        id="games"
+        className="profile-bar__box-text"
+      >
+        Games
       </div>
     </div>
   );
 };
+const INITIAL_STATE = {};
 
 class UserProfile extends Component {
-  state = {};
+  state = {
+    friends: false,
+    duties: false,
+    games: true
+  };
+
+  toggleDisplay = e => {
+    // sets this to the state it doesnt have atm.
+    Object.keys(this.state).forEach(component => {
+      return component === e.target.id
+        ? this.setState({ [component]: true })
+        : this.setState({ [component]: false });
+    });
+    //  this.setState({ [e.target.id]: !this.state[e.target.id] });
+  };
+
   render() {
     const { authUser } = this.props;
     console.log("authUser", authUser);
@@ -34,11 +66,11 @@ class UserProfile extends Component {
           name={authUser.displayName}
         />
 
-        <ProfileBar />
+        <ProfileBar toggleDisplay={this.toggleDisplay} />
         <div style={{ display: "flex" }}>
-          <DutyZone />
-          <FriendZone />
-          <ShowGames />
+          {this.state.friends && <FriendZone />}
+          {this.state.duties && <DutyZone />}
+          {this.state.games && <ShowGames />}
         </div>
       </div>
     );
