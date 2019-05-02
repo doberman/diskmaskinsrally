@@ -1,5 +1,5 @@
 .background-color {
-  background: linear-gradient(180deg, #3e3d4a 0%, #1f1e2a 100%);
+  background: none;
 }
 
 @media only screen and (max-width: 992px) {

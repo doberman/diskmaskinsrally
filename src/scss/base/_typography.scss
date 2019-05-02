@@ -5,34 +5,39 @@
 .typography--mini {
   @include font-base-white-center;
   font-weight: 400;
-  font-size: 12pt;
+  //   font-size: 12pt;
+  font-size: 0.9rem;
 }
 
 .typography--small {
   @include font-base-white-center;
   font-weight: 400;
-  font-size: 18pt;
+  //   font-size: 18pt;
+  font-size: 1.2rem;
 }
 
 //btn and avatarname
 .typography--medium {
   @include font-base-white-center;
   font-weight: 700;
-  font-size: 22pt;
+  //   font-size: 22pt;
+  font-size: 1.4rem;
 }
 
 //profielbar duty score
 .typography--large {
   @include font-base-white-center;
   font-weight: 700;
-  font-size: 32pt;
+  //   font-size: 32pt;
+  font-size: 1.8rem;
 }
 
 //headers
 .typography--xlarge {
   @include font-base-white-center;
   font-weight: 700;
-  font-size: 44pt;
+  //   font-size: 44pt;
+  font-size: 2rem;
 }
 
 .bold {
