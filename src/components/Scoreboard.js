@@ -5,16 +5,19 @@ import ProgressBar from "./ProgressBar";
 import UserScore from "./UserScore";
 import { getDutyTotalForGame } from "../utils/getDutyTotalsForGame";
 import { withCurrentUser } from "./hoc/withCurrentUser";
+import { withUsers } from "./hoc/withAuthUser";
 
 import "../css/taskRow.css";
 import { withGames } from "./hoc/withGames";
 
 function Scoreboard(props) {
   const pathname = window.location.pathname.replace("/scoreboard/", "");
-  console.log("pathname", pathname);
 
-  const { games, authUser } = props;
+  const { games, authUser, users } = props;
   if (!authUser) {
+    return null;
+  }
+  if (!users) {
     return null;
   }
   if (games.length === 0) {
@@ -28,53 +31,70 @@ function Scoreboard(props) {
 
   const dutyTotals = getDutyTotalForGame(game);
 
+  const usersDisplayName = Object.values(game.users).map(user => {
+    return users.filter(username => username.email === user.name)[0];
+  });
+
+  const gameUsers = Object.values(game.users).map(user => user);
+
+  // add display name (username) to game array
+  usersDisplayName.map(c => {
+    if (c) {
+      Object.keys(gameUsers).forEach(userId => {
+        if (gameUsers[userId].name === c.email) {
+          return (gameUsers[userId].displayName = c.displayName);
+        }
+      });
+    }
+  });
+
   return (
-    <div>
-      <div className="scoreboard-container">
-        <h1>{game.title}</h1>
+    <div className="scoreboard-container">
+      <span className="typography--xlarge">{game.title}</span>
+      <p className="typography--small red-font">
         {game.daysToEnd === 1 && "LAST DAY!!!!"}
-        {game.active === false && "Old game"}
-      </div>
+        {game.active === false && "(Old game)"}
+      </p>
+
       <ProgressBar game={game} />
 
-      <div
-        className="container_scoreboard"
-        style={{ display: "flex", flexDirection: "row" }}
-      >
-        <div className="buttons-container">
+      <div className="container_scoreboard">
+        <div className="Buttons-container">
           {Object.keys(game.users).map(userId => {
             return Object.keys(game.users[userId].duty_score).map(duty => {
               const dutyScore = game.users[userId].duty_score[duty];
-              const userWithId = {
-                id: userId,
-                ...game.users[userId]
-              };
+
               return game.users[userId].name === authUser.email ? (
                 <Button
+                  key={duty}
                   dutyName={duty}
                   dutyScore={dutyScore}
                   game={game}
-                  user={userWithId}
+                  // add id as prop in game.users.
+                  user={{ id: userId, ...game.users[userId] }}
                 />
               ) : null;
             });
           })}
         </div>
-        {Object.keys(game.users).map(userId => (
-          <UserScore
-            game={game}
-            key={userId}
-            dutyTotals={dutyTotals}
-            // add id as prop in users.
-            user={{
-              id: userId,
-              ...game.users[userId]
-            }}
-          />
-        ))}
+        <div className="UserScore-container">
+          {Object.keys(game.users).map(userId => {
+            return (
+              <UserScore
+                game={game}
+                key={userId}
+                dutyTotals={dutyTotals}
+                user={{
+                  id: userId,
+                  ...game.users[userId]
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
 
-export default withCurrentUser(withGames(Scoreboard));
+export default withUsers(withCurrentUser(withGames(Scoreboard)));

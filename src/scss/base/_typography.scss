@@ -1,3 +1,60 @@
 /*
  * base/_typography.scss
  */
+
+.typography--mini {
+  @include font-base-white-center;
+  font-weight: 400;
+  font-size: 12pt;
+}
+
+.typography--small {
+  @include font-base-white-center;
+  font-weight: 400;
+  font-size: 18pt;
+}
+
+//btn and avatarname
+.typography--medium {
+  @include font-base-white-center;
+  font-weight: 700;
+  font-size: 22pt;
+}
+
+//profielbar duty score
+.typography--large {
+  @include font-base-white-center;
+  font-weight: 700;
+  font-size: 32pt;
+}
+
+//headers
+.typography--xlarge {
+  @include font-base-white-center;
+  font-weight: 700;
+  font-size: 44pt;
+}
+
+.bold {
+  font-weight: 700;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+
+.black-font {
+  color: black;
+}
+
+.green-font {
+  color: $color-green;
+}
+.red-font {
+  color: $color-red;
+}
+.grey-font {
+  color: $color-lightgrey;
+}

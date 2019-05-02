@@ -9,7 +9,7 @@ const Navbar = ({ authUser }) => {
   return (
     <nav className="nav-wrapper background-color darken-3">
       <div className="container">
-        <Link to="/" className="brand-logo">
+        <Link to="/" className="typography--medium">
           Diskrally
         </Link>
         {authUser ? <SignInLinks /> : <SignOutLinks />}

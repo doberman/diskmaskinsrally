@@ -3,18 +3,23 @@ import React, { Fragment } from "react";
 import avatar from "../assets/avatar.svg";
 
 const UserAvatar = props => {
-  const { name, authUser } = props;
-  // const gameUser = games.map(game => game.users);
-  // console.log("gameUser", gameUser);
-  // const gameUserName = gameUser.map(g => g.map(gh => <div>{gh.name}</div>));
-
+  const { email, authName, authUser, showName, displayName } = props;
+  const pathname = window.location.pathname;
+  console.log("pathname", pathname);
   return (
     <Fragment>
       <img style={{ width: 60 }} src={avatar} alt="avatar" />
-      <p>
-        {name === authUser.email && "Me"}
-        {name !== authUser.email && name}
-      </p>
+      {showName && (
+        <p className="typography--medium">
+          {email === authUser.email &&
+            pathname.startsWith("/scoreboard/") &&
+            displayName + " (me)"}
+          {email === authUser.email &&
+            !pathname.startsWith("/scoreboard/") &&
+            displayName}
+          {email !== authUser.email && displayName}
+        </p>
+      )}
     </Fragment>
   );
 };

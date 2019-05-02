@@ -7,10 +7,10 @@ const Duty = props => {
   console.log(dutyT);
   return (
     <div className="tasks">
-      <div className="left title_space typo_text">{name}:</div>
-      <div className="right typo_medium">
+      <div className="typography--small left">{name}:</div>
+      <div className="typography--small bold right">
         <span>{score} </span>
-        <span style={{ color: "#65646E" }}>/ {dutyT}</span>
+        <span className="grey-font">/ {dutyT}</span>
       </div>
     </div>
   );

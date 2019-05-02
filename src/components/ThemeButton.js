@@ -20,10 +20,16 @@ export default function ThemeButton(props) {
     <Fragment>
       {linked && (
         <Link to={props.link}>
-          <button style={styleButton}>{props.buttonText}</button>
+          <button className="theme-button typography--medium">
+            {props.buttonText}
+          </button>
         </Link>
       )}
-      {!linked && <button style={styleButton}>{props.buttonText}</button>}
+      {!linked && (
+        <button className="theme-button typography--medium">
+          {props.buttonText}
+        </button>
+      )}
     </Fragment>
   );
 }

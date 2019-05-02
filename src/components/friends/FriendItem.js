@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { DeleteButtonRound } from "../modules/DeleteButtonRound";
 
 export default class FriendItem extends Component {
   render() {
@@ -8,9 +9,9 @@ export default class FriendItem extends Component {
         <p>
           <li id={email}>
             {email}
-            <button onClick={this.props.deleteFriend.bind(this, email)}>
-              x
-            </button>
+            <DeleteButtonRound
+              onclick={this.props.deleteFriend.bind(this, email)}
+            />
           </li>
         </p>
       </div>

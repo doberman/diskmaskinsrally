@@ -8,7 +8,6 @@ import { withCurrentUser } from "./hoc/withCurrentUser";
 class UserScore extends Component {
   render() {
     const { user, game, authUser, dutyTotals } = this.props;
-    console.log(this.props);
     if (!authUser) {
       return null;
     }
@@ -16,13 +15,25 @@ class UserScore extends Component {
       <Fragment>
         <div id={user.name} className="user-score-container">
           <div className="user-avatar-container">
-            <UserAvatar name={user.name} authUser={authUser} />
+            <UserAvatar
+              email={user.name}
+              displayName={user.displayName}
+              authUser={authUser}
+              showName={true}
+              authName={authUser.displayName}
+            />
 
             {Object.keys(user.duty_score).map(duty => {
               const dutyScore = user.duty_score[duty];
               const dutyT = dutyTotals[duty];
               return (
-                <Duty dutyT={dutyT} game={game} name={duty} score={dutyScore} />
+                <Duty
+                  key={duty}
+                  dutyT={dutyT}
+                  game={game}
+                  name={duty}
+                  score={dutyScore}
+                />
               );
             })}
           </div>

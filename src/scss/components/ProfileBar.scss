@@ -1,0 +1,23 @@
+.profile-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: $color-lightgreyblue;
+}
+
+.profile-bar__box-text {
+  padding: 15px;
+  width: 250px;
+  justify-content: center;
+  display: flex;
+}
+
+.profile-bar__box-text--is-active {
+  background: $color-profile-bar-background;
+}
+
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

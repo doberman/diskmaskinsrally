@@ -5,6 +5,7 @@
   "dependencies": {
     "@react-firebase/auth": "^0.2.9",
     "@react-firebase/database": "^0.3.10",
+    "classnames": "^2.2.6",
     "firebase": "^5.8.5",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
