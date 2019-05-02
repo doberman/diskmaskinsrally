@@ -49,19 +49,17 @@ function Scoreboard(props) {
   });
 
   return (
-    <div>
-      <div className="scoreboard-container">
-        <h1>{game.title}</h1>
+    <div className="scoreboard-container">
+      <span className="typography--xlarge">{game.title}</span>
+      <p className="typography--small red-font">
         {game.daysToEnd === 1 && "LAST DAY!!!!"}
-        {game.active === false && "Old game"}
-      </div>
+        {game.active === false && "(Old game)"}
+      </p>
+
       <ProgressBar game={game} />
 
-      <div
-        className="container_scoreboard"
-        style={{ display: "flex", flexDirection: "row" }}
-      >
-        <div className="buttons-container">
+      <div className="container_scoreboard">
+        <div className="Buttons-container">
           {Object.keys(game.users).map(userId => {
             return Object.keys(game.users[userId].duty_score).map(duty => {
               const dutyScore = game.users[userId].duty_score[duty];
@@ -79,20 +77,21 @@ function Scoreboard(props) {
             });
           })}
         </div>
-
-        {Object.keys(game.users).map(userId => {
-          return (
-            <UserScore
-              game={game}
-              key={userId}
-              dutyTotals={dutyTotals}
-              user={{
-                id: userId,
-                ...game.users[userId]
-              }}
-            />
-          );
-        })}
+        <div className="UserScore-container">
+          {Object.keys(game.users).map(userId => {
+            return (
+              <UserScore
+                game={game}
+                key={userId}
+                dutyTotals={dutyTotals}
+                user={{
+                  id: userId,
+                  ...game.users[userId]
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

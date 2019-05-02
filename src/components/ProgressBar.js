@@ -23,36 +23,33 @@ class ProgressBar extends Component {
     const inBar = daysDone + "/" + totalDaysOfGame;
 
     return (
-      <Fragment>
-        <div className="progress-bar flex">
-          <div className="progress-bar__circle flex">
-            <div className="progress-bar__circle-text">
-              <div>day</div>
-              {inBar}
-            </div>
+      <div className="progress-bar flex">
+        <div className="progress-bar__circle flex">
+          <div className="progress-bar__circle-text typography--large">
+            <div className="typography--small">day</div>
+            {inBar}
           </div>
-
-          <CircularProgressbar
-            className="progress-bar__circle-progress"
-            percentage={percentage}
-            background={false}
-            strokeWidth={4}
-            initialAnimation={true}
-            styles={{
-              text: {
-                fill: "#fff",
-                fontSize: "16px"
-              },
-              path: {
-                stroke: "#fff"
-              },
-              trail: {
-                strokeWidth: "0"
-              }
-            }}
-          />
         </div>
-      </Fragment>
+
+        <CircularProgressbar
+          className="progress-bar__circle-progress"
+          percentage={percentage}
+          background={false}
+          strokeWidth={4}
+          initialAnimation={true}
+          styles={{
+            text: {
+              fill: "#fff"
+            },
+            path: {
+              stroke: "#fff"
+            },
+            trail: {
+              strokeWidth: "0"
+            }
+          }}
+        />
+      </div>
     );
   }
 }

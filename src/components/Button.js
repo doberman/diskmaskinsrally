@@ -27,7 +27,9 @@ class Button extends Component {
     return (
       <Fragment>
         <div style={{ padding: "50px" }}>
-          <span style={{ display: "block" }}>{dutyName}</span>
+          <span className="typography--small" style={{ display: "block" }}>
+            {dutyName}
+          </span>
           <a
             onClick={this.handleCount}
             id={dutyName}

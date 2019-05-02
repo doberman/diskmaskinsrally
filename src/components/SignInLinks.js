@@ -5,7 +5,7 @@ import { withCurrentUser } from "./hoc/withCurrentUser";
 
 const SignInLinks = ({ authUser }) => {
   return (
-    <ul className="right">
+    <ul className="right typography--small bold">
       <li>
         <NavLink to="/newgame">New game</NavLink>
       </li>

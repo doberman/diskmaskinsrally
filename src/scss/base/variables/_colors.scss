@@ -7,6 +7,7 @@ $color-black: #000;
 $color-typography-base: $color-black;
 
 $color-lightgreyblue: #3e3d4a;
+$color-lightgrey: rgb(101, 100, 110);
 $color-darkblue: #1f1f2a;
 $color-red: #eb004c;
 $color-green: #27ae60;
@@ -15,4 +16,10 @@ $color-background: linear-gradient(
   180deg,
   $color-lightgreyblue 0%,
   $color-darkblue 100%
+);
+
+$color-profile-bar-background: radial-gradient(
+  139px at 50% 50.39%,
+  rgba(31, 31, 42, 0) 0%,
+  rgba(31, 31, 42, 0.5) 100%
 );

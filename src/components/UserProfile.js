@@ -1,34 +1,42 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 import { withCurrentUser } from "./hoc/withCurrentUser";
 import CreateDuty from "./duties/CreateDuty";
 import FriendZone from "./friends/FriendZone";
 import DutyZone from "./duties/DutyZone";
 import ShowGames from "./games/ShowGames";
 import UserAvatar from "./UserAvatar";
+import { DeleteButtonRound } from "./modules/DeleteButtonRound";
 
-import "./ProfileBar.scss";
+//classNames is a JavaScript utility for conditionally joining classNames together.
 
-export const ProfileBar = props => {
+export const ProfileBar = ({ activeItem, toggleDisplay }) => {
   return (
     <div className="profile-bar">
       <div
-        onClick={props.toggleDisplay}
+        onClick={toggleDisplay}
         id="friends"
-        className="profile-bar__box-text"
+        className={classNames("profile-bar__box-text typography--medium", {
+          "profile-bar__box-text--is-active": activeItem === "friends"
+        })}
       >
         Friends
       </div>
       <div
-        onClick={props.toggleDisplay}
+        onClick={toggleDisplay}
         id="duties"
-        className="profile-bar__box-text"
+        className={classNames("profile-bar__box-text typography--medium", {
+          "profile-bar__box-text--is-active": activeItem === "duties"
+        })}
       >
         Duties
       </div>
       <div
-        onClick={props.toggleDisplay}
+        onClick={toggleDisplay}
         id="games"
-        className="profile-bar__box-text"
+        className={classNames("profile-bar__box-text typography--medium", {
+          "profile-bar__box-text--is-active": activeItem === "games"
+        })}
       >
         Games
       </div>
@@ -51,22 +59,34 @@ class UserProfile extends Component {
         ? this.setState({ [component]: true })
         : this.setState({ [component]: false });
     });
-    //  this.setState({ [e.target.id]: !this.state[e.target.id] });
   };
 
   render() {
     const { authUser } = this.props;
-    console.log("authUser", authUser);
+    const activeItem = Object.keys(this.state).filter(
+      s => this.state[s] === true
+    )[0];
+
     return (
-      <div>
-        <h1>{authUser.displayName}</h1>
+      <div className="user-profile-container">
+        <h1 className="typography--large">{authUser.displayName}</h1>
         <UserAvatar
           email={authUser.email}
           authUser={authUser}
           name={authUser.displayName}
         />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <span style={{ marginRight: "10px" }} className="typography--mini">
+            Change image
+          </span>
+          <DeleteButtonRound />
+        </div>
 
-        <ProfileBar toggleDisplay={this.toggleDisplay} />
+        <ProfileBar
+          activeItem={activeItem}
+          toggleDisplay={this.toggleDisplay}
+        />
+
         <div style={{ display: "flex" }}>
           {this.state.friends && <FriendZone />}
           {this.state.duties && <DutyZone />}

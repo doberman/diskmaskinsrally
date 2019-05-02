@@ -15,16 +15,28 @@
 }
 
 @mixin above($size) {
-  @media (min-width: get-breakpoint-size($size)) { @content; }
+  @media (min-width: get-breakpoint-size($size)) {
+    @content;
+  }
 }
 
 @mixin below($size) {
-  @media (max-width: get-breakpoint-size($size)) { @content; }
+  @media (max-width: get-breakpoint-size($size)) {
+    @content;
+  }
 }
 
 @mixin between($from-size, $to-size) {
   $from-size: get-breakpoint-size($from-size);
   $to-size: get-breakpoint-size($to-size);
 
-  @media (min-width: $from-size) and (max-width: $to-size) { @content; }
+  @media (min-width: $from-size) and (max-width: $to-size) {
+    @content;
+  }
+}
+
+@mixin font-base-white-center {
+  font-style: normal;
+  text-align: center;
+  color: #ffffff;
 }

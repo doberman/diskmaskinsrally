@@ -10,7 +10,7 @@ const UserAvatar = props => {
     <Fragment>
       <img style={{ width: 60 }} src={avatar} alt="avatar" />
       {showName && (
-        <p>
+        <p className="typography--medium">
           {email === authUser.email &&
             pathname.startsWith("/scoreboard/") &&
             displayName + " (me)"}

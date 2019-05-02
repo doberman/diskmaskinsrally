@@ -19,7 +19,11 @@
   align-items: center;
 }
 
-.buttons-container {
+.Buttons-container {
+  @include flex-column-center;
+  flex-direction: row;
+}
+.UserScore-container {
   @include flex-column-center;
   flex-direction: row;
 }
