@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./ProgressBar.scss";
+import VisibilitySensor from "react-visibility-sensor";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -31,24 +32,35 @@ class ProgressBar extends Component {
           </div>
         </div>
 
-        <CircularProgressbar
-          className="progress-bar__circle-progress"
-          percentage={percentage}
-          background={false}
-          strokeWidth={4}
-          initialAnimation={true}
-          styles={{
-            text: {
-              fill: "#fff"
-            },
-            path: {
-              stroke: "#fff"
-            },
-            trail: {
-              strokeWidth: "0"
-            }
+        <VisibilitySensor>
+          {({ isVisible }) => {
+            const ShowPercentage = isVisible ? percentage : 0;
+            return (
+              <CircularProgressbar
+                className="progress-bar__circle-progress"
+                percentage={ShowPercentage}
+                background={false}
+                strokeWidth={4}
+                initialAnimation={true}
+                styles={{
+                  text: {
+                    fill: "#fff"
+                  },
+                  path: {
+                    stroke: "#fff"
+                  },
+                  trail: {
+                    strokeWidth: "0"
+                  }
+                }}
+              />
+              // <CircularProgressbar
+              //   percentage={percentage}
+              //   text={`${percentage}%`}
+              // />
+            );
           }}
-        />
+        </VisibilitySensor>
       </div>
     );
   }
