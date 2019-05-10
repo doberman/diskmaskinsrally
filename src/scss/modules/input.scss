@@ -1,0 +1,18 @@
+.input-text {
+  -webkit-appearance: textfield;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border: 0;
+  border-bottom: 1px solid white;
+  width: 80%;
+  transition: 0.3s width ease-in-out;
+  font-family: $font-base-family;
+
+  &:focus {
+    border-bottom: 1px solid $color-green;
+    outline: 0;
+    width: 100%;
+  }
+}

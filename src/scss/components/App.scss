@@ -10,3 +10,15 @@
   color: white;
   margin: 0 20vw;
 }
+
+@include below($breakpoint-small) {
+  .App-content {
+    margin: 0 10vw;
+  }
+}
+
+@include above($breakpoint-medium) {
+}
+
+@include between($breakpoint-medium, $breakpoint-large) {
+}
