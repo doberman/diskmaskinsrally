@@ -43,13 +43,14 @@ class CreateFriend extends Component {
         <p>Add friend:</p>
         <form onSubmit={this.handleSubmit}>
           <input
+            className="input-text typography--mini left"
             name={field}
             value={value}
             onChange={this.onChange}
             type="text"
           />
         </form>
-        <p>{this.state.error}</p>
+        <div className="typography--mini left red-font">{this.state.error}</div>
       </div>
     );
   }

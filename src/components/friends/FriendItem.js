@@ -7,7 +7,7 @@ export default class FriendItem extends Component {
     return (
       <div>
         <p>
-          <li id={email}>
+          <li className="list" id={email}>
             {email}
             <DeleteButtonRound
               onclick={this.props.deleteFriend.bind(this, email)}

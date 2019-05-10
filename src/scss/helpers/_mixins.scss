@@ -14,6 +14,10 @@
   overflow: hidden;
 }
 
+/*
+ * Media queries
+ */
+
 @mixin above($size) {
   @media (min-width: get-breakpoint-size($size)) {
     @content;
@@ -34,6 +38,10 @@
     @content;
   }
 }
+
+/*
+ * Fonts
+ */
 
 @mixin font-base-white-center {
   font-style: normal;

@@ -4,9 +4,9 @@ import { withCurrentUser } from "./hoc/withCurrentUser";
 
 const Start = ({ authUser }) => {
   return (
-    <div className="typography--small">
+    <div className="start-container">
       <h1 className="typography--xlarge">Welcome!</h1>
-      <p>
+      <p className="typography--small">
         This is the game for equality at home. Challenges your partner to start
         taking more responsibility for household duties.
       </p>
